@@ -11,5 +11,5 @@
 
 ### iowa mesonet
 
-- 
+- capabilities xml, goes_conus_vis:
 - <http://mesonet.agron.iastate.edu/cgi-bin/wms/goes/conus_vis.cgi?VERSION=1.1.1&REQUEST=GetCapabilities&SERVICE=WMS&>
