@@ -4,7 +4,17 @@ load_map = (div_name)->
   ol_wms = new OpenLayers.Layer.WMS "OpenLayers WMS", "http://vmap0.tiles.osgeo.org/wms/vmap0?",
       layers: "basic"
 
+  geoProj  = new OpenLayers.Projection "EPSG:4326"
+  mercProj = new OpenLayers.Projection "EPSG:900913" # open street maps, google maps, etc.
+
+  #     42° 2′ 5″ N, 93° 37′ 12″ W
+  ames = new OpenLayers.LonLat -93.62, 42.034722
+  # imageCenter.transform(geoProj, mercProj), 2
   map.addLayer ol_wms
+
+  # map.setCenter ames #.transform(geoProj, mercProj), 2
+  map.zoomTo 10
+
 
   # east_ir_4km
   GOESEASTIR = 
