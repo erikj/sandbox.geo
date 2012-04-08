@@ -5,8 +5,6 @@ load_map = (div_name)->
       layers: "basic"
 
   map.addLayer ol_wms
-  # geoProj  = new OpenLayers.Projection "EPSG:4326"
-  # mercProj = new OpenLayers.Projection "EPSG:900913" # open street maps, google maps, etc.
 
   ames = new OpenLayers.LonLat -93.62, 42.034722
 
