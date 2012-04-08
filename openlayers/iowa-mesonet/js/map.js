@@ -3,6 +3,8 @@
 
   load_map = function(div_name) {
     var GOESCONUSIR, GOESEASTIR, GOESWESTIR, NEXRADBASEREFLECT, NEXRADN0Q, ames, iowa_cgi, iowa_cgis, iowa_wms_layer, layerSwitcher, map, ol_wms, _i, _len;
+    OpenLayers.IMAGE_RELOAD_ATTEMPTS = 4;
+    OpenLayers.Util.onImageLoadErrorColor = "transparent";
     map = new OpenLayers.Map(div_name);
     ol_wms = new OpenLayers.Layer.WMS("OpenLayers WMS", "http://vmap0.tiles.osgeo.org/wms/vmap0?", {
       layers: "basic"
@@ -45,7 +47,9 @@
       iowa_wms_layer.setVisibility((iowa_cgi['visibility'] != null) && iowa_cgi['visibility']);
       map.addLayer(iowa_wms_layer);
     }
-    layerSwitcher = new OpenLayers.Control.LayerSwitcher();
+    layerSwitcher = new OpenLayers.Control.LayerSwitcher({
+      'ascending': false
+    });
     map.addControl(layerSwitcher);
     return layerSwitcher.maximizeControl();
   };

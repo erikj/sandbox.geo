@@ -1,5 +1,9 @@
 load_map = (div_name)->
 
+  # avoid pink error tiles
+  OpenLayers.IMAGE_RELOAD_ATTEMPTS = 4;
+  OpenLayers.Util.onImageLoadErrorColor = "transparent";
+
   map = new OpenLayers.Map div_name
   ol_wms = new OpenLayers.Layer.WMS "OpenLayers WMS", "http://vmap0.tiles.osgeo.org/wms/vmap0?",
       layers: "basic"
@@ -51,7 +55,7 @@ load_map = (div_name)->
   
     map.addLayer iowa_wms_layer
 
-  layerSwitcher = new OpenLayers.Control.LayerSwitcher()
+  layerSwitcher = new OpenLayers.Control.LayerSwitcher({'ascending':false})
   map.addControl layerSwitcher
   layerSwitcher.maximizeControl()
 
