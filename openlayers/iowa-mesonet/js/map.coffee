@@ -4,18 +4,19 @@ load_map = (div_name)->
   OpenLayers.IMAGE_RELOAD_ATTEMPTS = 4;
   OpenLayers.Util.onImageLoadErrorColor = "transparent";
 
-  map = new OpenLayers.Map div_name
-  ol_wms = new OpenLayers.Layer.WMS "OpenLayers WMS", "http://vmap0.tiles.osgeo.org/wms/vmap0?",
-      layers: "basic"
+  map = new OpenLayers.Map
+     div:        div_name
+     projection: new OpenLayers.Projection "EPSG:900913"
+     units: "m"
+     maxResolution: 156543.0339
+     maxExtent: new OpenLayers.Bounds( -20037508, -20037508, 20037508, 20037508.34 )
 
-  map.addLayer ol_wms
+  osm = new OpenLayers.Layer.OSM 'open street map'
+  map.addLayer osm
 
   ames = new OpenLayers.LonLat -93.62, 42.034722
 
-  map.setCenter ames, 5
-
-  # map.zoomToExtent(new OpenLayers.Bounds(-100.898437,22.148438,-78.398437,39.726563));
-  # map.zoomToExtent( new OpenLayers.Bounds(-110,20,-100,40) )
+  map.setCenter ames.transform( new OpenLayers.Projection("EPSG:4326"), map.getProjectionObject()), 5
 
   # east_ir_4km
   GOESEASTIR = 
@@ -48,15 +49,18 @@ load_map = (div_name)->
     iowa_wms_layer = new OpenLayers.Layer.WMS iowa_cgi['layer'], iowa_cgi['url'],
         layers: iowa_cgi['layer']
         transparent: true
-        format: "image/png"
+        format: "image/png",
+        { transitionEffect: 'resize' }
         # time: "2005-08-29T13:00:00Z"
     iowa_wms_layer.setOpacity .6
     iowa_wms_layer.setVisibility (iowa_cgi['visibility']? and iowa_cgi['visibility'])
   
     map.addLayer iowa_wms_layer
 
-  layerSwitcher = new OpenLayers.Control.LayerSwitcher({'ascending':false})
-  map.addControl layerSwitcher
+  keyboardControl = new OpenLayers.Control.KeyboardDefaults
+  layerSwitcher   = new OpenLayers.Control.LayerSwitcher({'ascending':false})
+  map.addControls [ layerSwitcher , keyboardControl ]
+
   layerSwitcher.maximizeControl()
 
 $ ->
