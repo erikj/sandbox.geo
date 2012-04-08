@@ -4,17 +4,16 @@ load_map = (div_name)->
   ol_wms = new OpenLayers.Layer.WMS "OpenLayers WMS", "http://vmap0.tiles.osgeo.org/wms/vmap0?",
       layers: "basic"
 
-  geoProj  = new OpenLayers.Projection "EPSG:4326"
-  mercProj = new OpenLayers.Projection "EPSG:900913" # open street maps, google maps, etc.
-
-  #     42° 2′ 5″ N, 93° 37′ 12″ W
-  ames = new OpenLayers.LonLat -93.62, 42.034722
-  # imageCenter.transform(geoProj, mercProj), 2
   map.addLayer ol_wms
+  # geoProj  = new OpenLayers.Projection "EPSG:4326"
+  # mercProj = new OpenLayers.Projection "EPSG:900913" # open street maps, google maps, etc.
 
-  # map.setCenter ames #.transform(geoProj, mercProj), 2
-  map.zoomTo 10
+  ames = new OpenLayers.LonLat -93.62, 42.034722
 
+  map.setCenter ames, 5
+
+  # map.zoomToExtent(new OpenLayers.Bounds(-100.898437,22.148438,-78.398437,39.726563));
+  # map.zoomToExtent( new OpenLayers.Bounds(-110,20,-100,40) )
 
   # east_ir_4km
   GOESEASTIR = 
@@ -41,7 +40,7 @@ load_map = (div_name)->
     visibility: true
 
   iowa_cgis = [ GOESEASTIR, GOESWESTIR, NEXRADBASEREFLECT, NEXRADN0Q ]
-
+  # iowa_cgis=[]
   for iowa_cgi in iowa_cgis
     # iowa_wms_layer = new OpenLayers.Layer.WMS "Nexrad", "http://mesonet.agron.iastate.edu/cgi-bin/wms/nexrad/n0r-t.cgi?",
     iowa_wms_layer = new OpenLayers.Layer.WMS iowa_cgi['layer'], iowa_cgi['url'],
@@ -57,7 +56,6 @@ load_map = (div_name)->
   layerSwitcher = new OpenLayers.Control.LayerSwitcher()
   map.addControl layerSwitcher
   layerSwitcher.maximizeControl()
-  map.zoomToExtent new OpenLayers.Bounds(-100.898437, 22.148438, -78.398437, 39.726563)
 
 $ ->
   load_map('map')

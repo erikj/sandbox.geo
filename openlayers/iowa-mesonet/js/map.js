@@ -2,16 +2,14 @@
   var load_map;
 
   load_map = function(div_name) {
-    var GOESCONUSIR, GOESEASTIR, GOESWESTIR, NEXRADBASEREFLECT, NEXRADN0Q, ames, geoProj, iowa_cgi, iowa_cgis, iowa_wms_layer, layerSwitcher, map, mercProj, ol_wms, _i, _len;
+    var GOESCONUSIR, GOESEASTIR, GOESWESTIR, NEXRADBASEREFLECT, NEXRADN0Q, ames, iowa_cgi, iowa_cgis, iowa_wms_layer, layerSwitcher, map, ol_wms, _i, _len;
     map = new OpenLayers.Map(div_name);
     ol_wms = new OpenLayers.Layer.WMS("OpenLayers WMS", "http://vmap0.tiles.osgeo.org/wms/vmap0?", {
       layers: "basic"
     });
-    geoProj = new OpenLayers.Projection("EPSG:4326");
-    mercProj = new OpenLayers.Projection("EPSG:900913");
-    ames = new OpenLayers.LonLat(-93.62, 42.034722);
     map.addLayer(ol_wms);
-    map.zoomTo(10);
+    ames = new OpenLayers.LonLat(-93.62, 42.034722);
+    map.setCenter(ames, 5);
     GOESEASTIR = {
       layer: 'east_ir_4km',
       url: 'http://mesonet.agron.iastate.edu/cgi-bin/wms/goes/east_ir.cgi?',
@@ -49,8 +47,7 @@
     }
     layerSwitcher = new OpenLayers.Control.LayerSwitcher();
     map.addControl(layerSwitcher);
-    layerSwitcher.maximizeControl();
-    return map.zoomToExtent(new OpenLayers.Bounds(-100.898437, 22.148438, -78.398437, 39.726563));
+    return layerSwitcher.maximizeControl();
   };
 
   $(function() {
