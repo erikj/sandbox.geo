@@ -2,7 +2,7 @@
   var load_map;
 
   load_map = function(div_name) {
-    var GOESCONUSIR, GOESEASTIR, GOESWESTIR, NEXRADBASEREFLECT, NEXRADN0Q, ames, iowa_cgi, iowa_cgis, iowa_wms_layer, keyboardControl, layerSwitcher, map, osm, panZoomBar, _i, _len;
+    var GOESCONUSIR, GOESEASTIR, GOESWESTIR, NEXRADBASEREFLECT, NEXRADN0Q, ames, iowa_cgi, iowa_cgis, iowa_wms_layer, keyboardControl, layerSwitcher, map, navControl, osm, panZoomBar, _i, _len;
     OpenLayers.IMAGE_RELOAD_ATTEMPTS = 4;
     OpenLayers.Util.onImageLoadErrorColor = "transparent";
     map = new OpenLayers.Map({
@@ -64,7 +64,8 @@
       'ascending': false
     });
     panZoomBar = new OpenLayers.Control.PanZoomBar;
-    map.addControls([layerSwitcher, keyboardControl, panZoomBar]);
+    navControl = new OpenLayers.Control.Navigation;
+    map.addControls([layerSwitcher, keyboardControl, panZoomBar, navControl]);
     return layerSwitcher.maximizeControl();
   };
 

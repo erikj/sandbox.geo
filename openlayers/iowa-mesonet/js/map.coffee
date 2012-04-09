@@ -83,10 +83,9 @@ load_map = (div_name)->
   keyboardControl = new OpenLayers.Control.KeyboardDefaults
   layerSwitcher   = new OpenLayers.Control.LayerSwitcher({'ascending':false})
   panZoomBar      = new OpenLayers.Control.PanZoomBar
-  # navigationControl = new OpenLayers.Control.Navigation
+  navControl      = new OpenLayers.Control.Navigation
 
-  map.addControls [ layerSwitcher, keyboardControl, panZoomBar ]
-  # map.addControls [ layerSwitcher, keyboardControl, navigationControl ]
+  map.addControls [ layerSwitcher, keyboardControl, panZoomBar, navControl ]
 
   layerSwitcher.maximizeControl()
 
