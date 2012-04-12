@@ -113,8 +113,8 @@ load_map = (div_name)->
 
   keyboardControl = new OpenLayers.Control.KeyboardDefaults
   layerSwitcher   = new OpenLayers.Control.LayerSwitcher({'ascending':false})
-  panZoomBar      = new OpenLayers.Control.PanZoomBar
-  navControl      = new OpenLayers.Control.Navigation
+  panZoomBar      = new OpenLayers.Control.PanZoomBar # visible control composed of OpenLayers Controls PanPanel and ZoomBar
+  navControl      = new OpenLayers.Control.Navigation # handles map browsing with mouse events
 
   map.addControls [ layerSwitcher, keyboardControl, panZoomBar, navControl ]
 
