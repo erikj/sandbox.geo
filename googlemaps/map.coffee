@@ -54,7 +54,7 @@ load_toggle_controls = (control_div_name) ->
   control_div.innerHTML = ''
   i = 0
   for kml in kml_layers
-    control_div.innerHTML += "<input type='checkbox' id='kml_layer_#{i}_checkbox' checked='yes' value='layer #{i}' onclick='toggle_layer(map,#{i});' /> "
+    control_div.innerHTML += "<input type='checkbox' id='kml_layer_#{i}_checkbox' checked='yes' value='layer #{i}' onclick='SANDBOXMAP.toggle_layer(map,#{i});' /> "
     control_div.innerHTML += "#{kml_filenames[i]}<br/>"
     i += 1
 
@@ -63,7 +63,7 @@ load_toggle_controls = (control_div_name) ->
 # toggle_layer(map, layer) toggle display of layer in map
 # input: google.maps.Map Object, google maps layer Object
 # output: TBD
-toggle_layer = (map, i) ->
+SANDBOXMAP.toggle_layer = (map, i) ->
   checkbox_div = "kml_layer_#{i}_checkbox"
   if document.getElementById(checkbox_div).checked
     kml_layers[i].setMap map
