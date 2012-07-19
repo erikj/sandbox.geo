@@ -8,11 +8,14 @@ kml_filenames = [ "betasso.kml", "boulder.kml", "flagstaff.kml", "gold-hill.kml"
 
 kml_layers    = ( new google.maps.KmlLayer (kml_base_url + f) for f in kml_filenames )
 
+SANDBOXMAP = {} # pointer to our library
+@SANDBOXMAP = SANDBOXMAP # add to global
+
 # load_map(map_div_name) initialize google maps
 # input: String, name of map div element
 # output: initialized map object
 
-load_map = (map_div_name) ->
+SANDBOXMAP.load_map = (map_div_name) ->
 
   # newdelhi = new google.maps.LatLng 28.635308, 77.22496
   boulder   = new google.maps.LatLng -105.3, 40.028
