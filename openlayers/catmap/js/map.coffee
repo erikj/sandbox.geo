@@ -62,87 +62,74 @@ CATMAP.load_map = (map_div_name) ->
 
   # kmlFilenames = [ "ge.research.201205090000.N677F_flight_track.kml" ]
 
-  kmlFilenames = [ "ge.research.201205090000.N677F_flight_track.kml",
-    "ge.research.201205111738.NA817_flight_track.kml",
-    "ge.SMART-R.201205131825.NOXP_location.kml",
-    "ge.SMART-R.201205111750.NOXP_location.kml",
-    "ge.NCAR_ISS.201205111652.location.kml" ]
+  # kmlFilenames = [ "ge.research.201205090000.N677F_flight_track.kml",
+  #   "ge.research.201205111738.NA817_flight_track.kml",
+  #   "ge.SMART-R.201205131825.NOXP_location.kml",
+  #   "ge.SMART-R.201205111750.NOXP_location.kml",
+  #   "ge.NCAR_ISS.201205111652.location.kml" ]
 
-  kmlLayers = []
+  # kmlLayers = []
 
-  for kmlFilename, i in kmlFilenames
-    kmlLayers.push new OpenLayers.Layer.Vector 'KML' #kmlFilename, kmlDir + "/" + kmlFilename,
-        strategies: [ new OpenLayers.Strategy.Fixed() ]
-        protocol: new OpenLayers.Protocol.HTTP
-            url:    kmlDir + "/" + kmlFilename
-            format: new OpenLayers.Format.KML
-                extractStyles: true
-                extractAttributes: true
+  # for kmlFilename, i in kmlFilenames
+  #   kmlLayers.push new OpenLayers.Layer.Vector 'KML' #kmlFilename, kmlDir + "/" + kmlFilename,
+  #       strategies: [ new OpenLayers.Strategy.Fixed() ]
+  #       protocol: new OpenLayers.Protocol.HTTP
+  #           url:    kmlDir + "/" + kmlFilename
+  #           format: new OpenLayers.Format.KML
+  #               extractStyles: true
+  #               extractAttributes: true
 
-  map.addLayers kmlLayers
+  # map.addLayers kmlLayers
 
-  for kmlLayer in kmlLayers
-    # http://dev.openlayers.org/releases/OpenLayers-2.11/examples/sundials.html
-    kmlLayer.events.on
-        "featureselected":   onFeatureSelect
-        "featureunselected": onFeatureUnselect
+  # for kmlLayer in kmlLayers
+  #   # http://dev.openlayers.org/releases/OpenLayers-2.11/examples/sundials.html
+  #   kmlLayer.events.on
+  #       "featureselected":   onFeatureSelect
+  #       "featureunselected": onFeatureUnselect
 
   # TODO: draw a line from Boulder to Salina
   # https://github.com/NCAR-Earth-Observing-Laboratory/catalog-maps/issues/69
-  lineLayer = new OpenLayers.Layer.Vector("Line Layer")
-  map.addControl( new OpenLayers.Control.DrawFeature(lineLayer, OpenLayers.Handler.Path) )
+  # lineLayer = new OpenLayers.Layer.Vector("Line Layer")
+  # map.addControl( new OpenLayers.Control.DrawFeature(lineLayer, OpenLayers.Handler.Path) )
 
-  # points =[ new OpenLayers.Geometry.Point(lon1, lat1), new OpenLayers.Geometry.Point(lon2, lat2) ]
-  points = [ salina, boulder ]
+  # # points =[ new OpenLayers.Geometry.Point(lon1, lat1), new OpenLayers.Geometry.Point(lon2, lat2) ]
+  # points = [ salina, boulder ]
 
-  line = new OpenLayers.Geometry.LineString(points)
+  # line = new OpenLayers.Geometry.LineString(points)
 
-  style = { strokeColor: '#0000ff'
-    strokeOpacity: 0.5
-    strokeWidth: 5
-  }
+  # style = { strokeColor: '#0000ff'
+  #   strokeOpacity: 0.5
+  #   strokeWidth: 5
+  # }
 
-  lineFeature = new OpenLayers.Feature.Vector(line, null, style)
-  lineLayer.addFeatures( [ lineFeature ])
+  # lineFeature = new OpenLayers.Feature.Vector(line, null, style)
+  # lineLayer.addFeatures( [ lineFeature ])
   
-  map.addLayer lineLayer
+  # map.addLayer lineLayer
+
+  # kmlSelector = new OpenLayers.Control.SelectFeature kmlLayers
+  # map.addControl kmlSelector
+  # kmlSelector.activate()
+
+  # > Terascan claims the bounding box is:
+  #     N: 49.6830
+  #     S: 27.6074
+  #     E: -89.5877
+  #     W: -125.4483
+
+  goesImageLayer = new OpenLayers.Layer.Image(
+    'goes-13-western-us-spherical-mercator.jpg',
+    'img/goes-13-western-us-spherical-mercator.jpg',
+    new OpenLayers.Bounds(-125.4483, 27.6074, -89.5877, 49.6830).transform(geoProj, mercProj),
+    new OpenLayers.Size(866,693),
+      isBaseLayer: false
+      alwaysInRange: true
+    )
+  map.addLayers [goesImageLayer]
+  goesImageLayer.setOpacity .5
 
 
 
-  kmlSelector = new OpenLayers.Control.SelectFeature kmlLayers
-  map.addControl kmlSelector
-  kmlSelector.activate()
-
-onFeatureSelect = (event) ->
-  feature = event.feature
-  console.log feature
-  # console.log "featureselected"
-  content = "<h2>" + feature.attributes.name + "</h2>" + feature.attributes.description
-
-  console.log feature.attributes.description
-
-  popup = new OpenLayers.Popup.FramedCloud "chickenXXX", 
-    feature.geometry.getBounds().getCenterLonLat()
-    new OpenLayers.Size(100,100)
-    content
-    null
-    true #, onFeatureUnselect(event)
-
-  feature.popup = popup
-  CATMAP.map.addPopup popup
-
-onFeatureUnselect = (event) ->
-  # alert 'unselected'
-  feature = event.feature
-  console.log feature
-  if feature.popup
-    CATMAP.map.removePopup feature.popup
-    feature.popup.destroy()
-    delete feature.popup
-
-
-
-  # 
   # imageLayer = new OpenLayers.Layer.Image(
   #   'business cat',
   #   'img/business-cat.jpg', # from http://troll.me/images/business-cat-needs/business-cat-needs.jpg
@@ -198,3 +185,31 @@ onFeatureUnselect = (event) ->
 
 
   return map
+
+
+onFeatureSelect = (event) ->
+  feature = event.feature
+  console.log feature
+  # console.log "featureselected"
+  content = "<h2>" + feature.attributes.name + "</h2>" + feature.attributes.description
+
+  console.log feature.attributes.description
+
+  popup = new OpenLayers.Popup.FramedCloud "chickenXXX", 
+    feature.geometry.getBounds().getCenterLonLat()
+    new OpenLayers.Size(100,100)
+    content
+    null
+    true #, onFeatureUnselect(event)
+
+  feature.popup = popup
+  CATMAP.map.addPopup popup
+
+onFeatureUnselect = (event) ->
+  # alert 'unselected'
+  feature = event.feature
+  console.log feature
+  if feature.popup
+    CATMAP.map.removePopup feature.popup
+    feature.popup.destroy()
+    delete feature.popup
