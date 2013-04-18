@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Placemark>
+    <name>smartr2</name>
+    <description>Ground mobile radar</description>
+    <TimeStamp>
+      <when>12-05-11T17:06:44Z</when>
+    </TimeStamp>
+    <Point>
+      <coordinates>-97.439452,35.181638,0</coordinates>
+    </Point>
+  </Placemark>
+</kml>

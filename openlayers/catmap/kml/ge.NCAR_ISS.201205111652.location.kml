@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Placemark>
+    <name>ISS</name>
+    <description>NCAR mobile sounding 2012-05-11,16:52</description>
+    <Point>
+      <coordinates>-97.6412,38.7914,0.0000</coordinates>
+    </Point>
+  </Placemark>
+</kml>

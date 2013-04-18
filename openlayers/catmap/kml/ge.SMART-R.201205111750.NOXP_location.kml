@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Placemark>
+    <name>noxp</name>
+    <description>Ground mobile radar</description>
+    <time>120511_162316</time>
+    <Point>
+      <coordinates>-97.512085,35.181992,0</coordinates>
+    </Point>
+  </Placemark>
+</kml>
