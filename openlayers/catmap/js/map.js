@@ -7,7 +7,7 @@
   this.CATMAP = CATMAP;
 
   CATMAP.load_map = function(map_div_name) {
-    var boulder, center, color, colors, controls, geoProj, ghyb, gmap, goesImageLayer, gsat, gterr, kmlDir, map, mercProj, osm, salina, styles;
+    var boulder, center, color, colors, controls, geoProj, ghyb, gmap, goesCh1Layer, goesCh4Layer, gsat, gterr, kmlDir, map, mercProj, osm, salina, styles;
 
     geoProj = new OpenLayers.Projection("EPSG:4326");
     mercProj = new OpenLayers.Projection("EPSG:900913");
@@ -56,12 +56,17 @@
       return _results;
     })();
     kmlDir = "kml";
-    goesImageLayer = new OpenLayers.Layer.Image('goes-13-western-us-spherical-mercator.jpg', 'img/goes-13-western-us-spherical-mercator.jpg', new OpenLayers.Bounds(-125.4483, 27.6074, -89.5877, 49.6830).transform(geoProj, mercProj), new OpenLayers.Size(866, 693), {
+    goesCh1Layer = new OpenLayers.Layer.Image('ops.GOES-13.201305220232.4km_ch1_vis.jpg', 'img/ops.GOES-13.201305220232.4km_ch1_vis.jpg', new OpenLayers.Bounds(-105.6473, 22.9482, -65.5498, 47.9302).transform(geoProj, mercProj), new OpenLayers.Size(866, 693), {
       isBaseLayer: false,
       alwaysInRange: true
     });
-    map.addLayers([goesImageLayer]);
-    goesImageLayer.setOpacity(.5);
+    goesCh4Layer = new OpenLayers.Layer.Image('ops.GOES-13.201305220332.4km_ch4_thermal-IR.jpg', 'img/ops.GOES-13.201305220332.4km_ch4_thermal-IR.jpg', new OpenLayers.Bounds(-105.6473, 22.9482, -65.5498, 47.9302).transform(geoProj, mercProj), new OpenLayers.Size(866, 693), {
+      isBaseLayer: false,
+      alwaysInRange: true
+    });
+    map.addLayers([goesCh1Layer, goesCh4Layer]);
+    goesCh1Layer.setOpacity(.5);
+    goesCh4Layer.setOpacity(.5);
     return map;
   };
 
