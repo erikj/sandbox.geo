@@ -7,7 +7,7 @@
   this.CATMAP = CATMAP;
 
   CATMAP.load_map = function(map_div_name) {
-    var boulder, center, color, colors, controls, geoProj, ghyb, gmap, goesCh1Layer, goesCh4Layer, gsat, gterr, kmlDir, map, mercProj, osm, salina, styles;
+    var boulder, center, color, colors, controls, geoProj, ghyb, gmap, goesCh1Layer, goesCh4Layer, gsat, gterr, kmlDir, map, mercProj, osm, salina, sasGoesBounds, styles;
 
     geoProj = new OpenLayers.Projection("EPSG:4326");
     mercProj = new OpenLayers.Projection("EPSG:900913");
@@ -56,11 +56,12 @@
       return _results;
     })();
     kmlDir = "kml";
-    goesCh1Layer = new OpenLayers.Layer.Image('ops.GOES-13.201305220232.4km_ch1_vis.jpg', 'img/ops.GOES-13.201305220232.4km_ch1_vis.jpg', new OpenLayers.Bounds(-105.6473, 22.9482, -65.5498, 47.9302).transform(geoProj, mercProj), new OpenLayers.Size(866, 693), {
+    sasGoesBounds = new OpenLayers.Bounds(-105.6473, 22.87, -65.46, 47.9302).transform(geoProj, mercProj);
+    goesCh1Layer = new OpenLayers.Layer.Image('ops.GOES-13.201305220232.4km_ch1_vis.jpg', 'img/ops.GOES-13.201305220232.4km_ch1_vis.jpg', sasGoesBounds, new OpenLayers.Size(866, 693), {
       isBaseLayer: false,
       alwaysInRange: true
     });
-    goesCh4Layer = new OpenLayers.Layer.Image('ops.GOES-13.201305220332.4km_ch4_thermal-IR.jpg', 'img/ops.GOES-13.201305220332.4km_ch4_thermal-IR.jpg', new OpenLayers.Bounds(-105.6473, 22.9482, -65.5498, 47.9302).transform(geoProj, mercProj), new OpenLayers.Size(866, 693), {
+    goesCh4Layer = new OpenLayers.Layer.Image('ops.GOES-13.201305220332.4km_ch4_thermal-IR.jpg', 'img/ops.GOES-13.201305220332.4km_ch4_thermal-IR.jpg', sasGoesBounds, new OpenLayers.Size(866, 693), {
       isBaseLayer: false,
       alwaysInRange: true
     });

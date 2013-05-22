@@ -135,10 +135,12 @@ CATMAP.load_map = (map_div_name) ->
   # E: -65.5498
   # W: -105.6473
 
+  sasGoesBounds = new OpenLayers.Bounds(-105.6473, 22.87, -65.46, 47.9302).transform(geoProj, mercProj)
+
   goesCh1Layer = new OpenLayers.Layer.Image(
     'ops.GOES-13.201305220232.4km_ch1_vis.jpg',
     'img/ops.GOES-13.201305220232.4km_ch1_vis.jpg',
-    new OpenLayers.Bounds(-105.6473, 22.9482, -65.5498, 47.9302).transform(geoProj, mercProj),
+    sasGoesBounds,
     new OpenLayers.Size(866,693),
       isBaseLayer: false
       alwaysInRange: true
@@ -147,7 +149,7 @@ CATMAP.load_map = (map_div_name) ->
   goesCh4Layer = new OpenLayers.Layer.Image(
     'ops.GOES-13.201305220332.4km_ch4_thermal-IR.jpg',
     'img/ops.GOES-13.201305220332.4km_ch4_thermal-IR.jpg',
-    new OpenLayers.Bounds(-105.6473, 22.9482, -65.5498, 47.9302).transform(geoProj, mercProj),
+    sasGoesBounds,
     new OpenLayers.Size(866,693),
       isBaseLayer: false
       alwaysInRange: true
@@ -155,7 +157,7 @@ CATMAP.load_map = (map_div_name) ->
 
 
   map.addLayers [goesCh1Layer, goesCh4Layer]
-
+ 
   goesCh1Layer.setOpacity .5
 
   goesCh4Layer.setOpacity .5
