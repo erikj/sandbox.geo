@@ -69,7 +69,7 @@
       isBaseLayer: false,
       alwaysInRange: true
     });
-    mpex1kmNgpGoesBounds = new OpenLayers.Bounds(-108.7010, 33.6552, -90.4855, 47.4165).transform(geoProj, mercProj);
+    mpex1kmNgpGoesBounds = new OpenLayers.Bounds(-108.7010, 33.63, -90.44, 47.4165).transform(geoProj, mercProj);
     mpex1kmNgpLayer = new OpenLayers.Layer.Image('ops.GOES-15.201305231830.1km_NGP_ch1_vis.jpg', 'img/ops.GOES-15.201305231830.1km_NGP_ch1_vis.jpg', mpex1kmNgpGoesBounds, new OpenLayers.Size(1024, 1024), {
       isBaseLayer: false,
       alwaysInRange: true
@@ -79,6 +79,7 @@
       isBaseLayer: false,
       alwaysInRange: true
     });
+    map.addLayers([mpex4kmCh1Layer, mpex4kmCh3Layer, mpex4kmCh4Layer]);
     map.addLayers([mpex1kmNgpLayer, mpex1kmSgpLayer]);
     mpex1kmNgpLayer.setOpacity(.5);
     mpex1kmSgpLayer.setOpacity(.5);

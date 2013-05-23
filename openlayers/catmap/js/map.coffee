@@ -210,7 +210,7 @@ CATMAP.load_map = (map_div_name) ->
   # minimum_longitude: -108.7010
   # maximum_longitude: -90.4855
 
-  mpex1kmNgpGoesBounds = new OpenLayers.Bounds(-108.7010, 33.6552,  -90.4855, 47.4165).transform(geoProj, mercProj)
+  mpex1kmNgpGoesBounds = new OpenLayers.Bounds(-108.7010, 33.63,  -90.44, 47.4165).transform(geoProj, mercProj)
 
   # ops.GOES-15.201305231830.1km_NGP_ch1_vis.jpg
   mpex1kmNgpLayer = new OpenLayers.Layer.Image(
@@ -241,7 +241,7 @@ CATMAP.load_map = (map_div_name) ->
       alwaysInRange: true
     )
 
-  # map.addLayers [ mpex4kmCh1Layer, mpex4kmCh3Layer, mpex4kmCh4Layer ]
+  map.addLayers [ mpex4kmCh1Layer, mpex4kmCh3Layer, mpex4kmCh4Layer ]
   map.addLayers [ mpex1kmNgpLayer, mpex1kmSgpLayer]
 
   # mpex4kmCh1Layer.setOpacity .5
