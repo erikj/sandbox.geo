@@ -7,7 +7,7 @@
   this.CATMAP = CATMAP;
 
   CATMAP.load_map = function(map_div_name) {
-    var boulder, center, color, colors, controls, geoProj, ghyb, gmap, goesCh1Layer, goesCh4Layer, gsat, gterr, kmlDir, map, mercProj, osm, salina, sasGoesBounds, styles;
+    var boulder, center, color, colors, controls, geoProj, ghyb, gmap, gsat, gterr, kmlDir, map, mercProj, mpex1kmNgpGoesBounds, mpex1kmSgpGoesBounds, mpex4kmCh1Layer, mpex4kmCh3Layer, mpex4kmCh4Layer, mpex4kmGoesBounds, osm, salina, styles;
 
     geoProj = new OpenLayers.Projection("EPSG:4326");
     mercProj = new OpenLayers.Projection("EPSG:900913");
@@ -56,18 +56,25 @@
       return _results;
     })();
     kmlDir = "kml";
-    sasGoesBounds = new OpenLayers.Bounds(-105.6473, 22.87, -65.46, 47.9302).transform(geoProj, mercProj);
-    goesCh1Layer = new OpenLayers.Layer.Image('ops.GOES-13.201305220232.4km_ch1_vis.jpg', 'img/ops.GOES-13.201305220232.4km_ch1_vis.jpg', sasGoesBounds, new OpenLayers.Size(866, 693), {
+    mpex4kmGoesBounds = new OpenLayers.Bounds(-125.4483, 27.55, -89.52, 49.6830).transform(geoProj, mercProj);
+    mpex4kmCh1Layer = new OpenLayers.Layer.Image('ops.GOES-15.201305231830.4km_ch1_vis.jpg', 'img/ops.GOES-15.201305231830.4km_ch1_vis.jpg', mpex4kmGoesBounds, new OpenLayers.Size(1000, 800), {
       isBaseLayer: false,
       alwaysInRange: true
     });
-    goesCh4Layer = new OpenLayers.Layer.Image('ops.GOES-13.201305220332.4km_ch4_thermal-IR.jpg', 'img/ops.GOES-13.201305220332.4km_ch4_thermal-IR.jpg', sasGoesBounds, new OpenLayers.Size(866, 693), {
+    mpex4kmCh3Layer = new OpenLayers.Layer.Image('ops.GOES-15.201305231830.4km_ch3_water_vapor.jpg', 'img/ops.GOES-15.201305231830.4km_ch3_water_vapor.jpg', mpex4kmGoesBounds, new OpenLayers.Size(1000, 800), {
       isBaseLayer: false,
       alwaysInRange: true
     });
-    map.addLayers([goesCh1Layer, goesCh4Layer]);
-    goesCh1Layer.setOpacity(.5);
-    goesCh4Layer.setOpacity(.5);
+    mpex4kmCh4Layer = new OpenLayers.Layer.Image('ops.GOES-15.201305231800.4km_ch4_thermal-IR.jpg', 'img/ops.GOES-15.201305231800.4km_ch4_thermal-IR.jpg', mpex4kmGoesBounds, new OpenLayers.Size(1000, 800), {
+      isBaseLayer: false,
+      alwaysInRange: true
+    });
+    mpex1kmNgpGoesBounds = new OpenLayers.Bounds(-108.7010, 33.6552, -90.4855, 47.4165).transform(geoProj, mercProj);
+    mpex1kmSgpGoesBounds = new OpenLayers.Bounds(-107.4267, 26.8635, -90.8137, 40.6155).transform(geoProj, mercProj);
+    map.addLayers([mpex4kmCh1Layer, mpex4kmCh3Layer, mpex4kmCh4Layer]);
+    mpex4kmCh1Layer.setOpacity(.5);
+    mpex4kmCh3Layer.setOpacity(.5);
+    mpex4kmCh4Layer.setOpacity(.5);
     return map;
   };
 
