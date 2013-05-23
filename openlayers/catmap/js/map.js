@@ -7,7 +7,7 @@
   this.CATMAP = CATMAP;
 
   CATMAP.load_map = function(map_div_name) {
-    var boulder, center, color, colors, controls, geoProj, ghyb, gmap, gsat, gterr, kmlDir, map, mercProj, mpex1kmNgpGoesBounds, mpex1kmSgpGoesBounds, mpex4kmCh1Layer, mpex4kmCh3Layer, mpex4kmCh4Layer, mpex4kmGoesBounds, osm, salina, styles;
+    var boulder, center, color, colors, controls, geoProj, ghyb, gmap, gsat, gterr, kmlDir, map, mercProj, mpex1kmNgpGoesBounds, mpex1kmNgpLayer, mpex1kmSgpGoesBounds, mpex1kmSgpLayer, mpex4kmCh1Layer, mpex4kmCh3Layer, mpex4kmCh4Layer, mpex4kmGoesBounds, osm, salina, styles;
 
     geoProj = new OpenLayers.Projection("EPSG:4326");
     mercProj = new OpenLayers.Projection("EPSG:900913");
@@ -70,11 +70,18 @@
       alwaysInRange: true
     });
     mpex1kmNgpGoesBounds = new OpenLayers.Bounds(-108.7010, 33.6552, -90.4855, 47.4165).transform(geoProj, mercProj);
-    mpex1kmSgpGoesBounds = new OpenLayers.Bounds(-107.4267, 26.8635, -90.8137, 40.6155).transform(geoProj, mercProj);
-    map.addLayers([mpex4kmCh1Layer, mpex4kmCh3Layer, mpex4kmCh4Layer]);
-    mpex4kmCh1Layer.setOpacity(.5);
-    mpex4kmCh3Layer.setOpacity(.5);
-    mpex4kmCh4Layer.setOpacity(.5);
+    mpex1kmNgpLayer = new OpenLayers.Layer.Image('ops.GOES-15.201305231830.1km_NGP_ch1_vis.jpg', 'img/ops.GOES-15.201305231830.1km_NGP_ch1_vis.jpg', mpex1kmNgpGoesBounds, new OpenLayers.Size(1024, 1024), {
+      isBaseLayer: false,
+      alwaysInRange: true
+    });
+    mpex1kmSgpGoesBounds = new OpenLayers.Bounds(-107.4267, 26.85, -90.78, 40.57).transform(geoProj, mercProj);
+    mpex1kmSgpLayer = new OpenLayers.Layer.Image('ops.GOES-15.201305231830.1km_SGP_ch1_vis.jpg', 'img/ops.GOES-15.201305231830.1km_SGP_ch1_vis.jpg', mpex1kmSgpGoesBounds, new OpenLayers.Size(1024, 1024), {
+      isBaseLayer: false,
+      alwaysInRange: true
+    });
+    map.addLayers([mpex1kmNgpLayer, mpex1kmSgpLayer]);
+    mpex1kmNgpLayer.setOpacity(.5);
+    mpex1kmSgpLayer.setOpacity(.5);
     return map;
   };
 
