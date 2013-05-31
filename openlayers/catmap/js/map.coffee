@@ -18,17 +18,19 @@ CATMAP.load_map = (map_div_name) ->
   mercProj = new OpenLayers.Projection "EPSG:900913"
 
   # initialize openlayers map
-
+  layerSwitcher = new OpenLayers.Control.LayerSwitcher
   controls = [ new OpenLayers.Control.MousePosition({displayProjection:geoProj})
                                             # display lat/lon of mouse's map position in lower-right corner
     new OpenLayers.Control.OverviewMap      # toggled, lower-right corner
     new OpenLayers.Control.KeyboardDefaults # +/- zoom in/out, move map via arrow keys
     # new OpenLayers.Control.Zoom 
-    new OpenLayers.Control.LayerSwitcher    # toggled, upper-right corner, base-layer select, and vector and image checkboxes
+    layerSwitcher   # toggled, upper-right corner, base-layer select, and vector and image checkboxes
     new OpenLayers.Control.Navigation ]     # move map, zoom in/out w/ via mouse input
 
   map = new OpenLayers.Map map_div_name,
       controls:controls
+
+  layerSwitcher.maximizeControl()
   CATMAP.map = map
   # layer for open-streep maps
   osm = new OpenLayers.Layer.OSM()

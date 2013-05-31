@@ -7,18 +7,20 @@
   this.CATMAP = CATMAP;
 
   CATMAP.load_map = function(map_div_name) {
-    var boulder, center, color, colors, controls, geoProj, ghyb, gmap, gsat, gterr, kmlDir, map, mercProj, mpex1kmNgpGoesBounds, mpex1kmNgpLayer, mpex1kmSgpGoesBounds, mpex1kmSgpLayer, mpex4kmCh1Layer, mpex4kmCh3Layer, mpex4kmCh4Layer, mpex4kmGoesBounds, osm, salina, styles;
+    var boulder, center, color, colors, controls, geoProj, ghyb, gmap, gsat, gterr, kmlDir, layerSwitcher, map, mercProj, mpex1kmNgpGoesBounds, mpex1kmNgpLayer, mpex1kmSgpGoesBounds, mpex1kmSgpLayer, mpex4kmCh1Layer, mpex4kmCh3Layer, mpex4kmCh4Layer, mpex4kmGoesBounds, osm, salina, styles;
 
     geoProj = new OpenLayers.Projection("EPSG:4326");
     mercProj = new OpenLayers.Projection("EPSG:900913");
+    layerSwitcher = new OpenLayers.Control.LayerSwitcher;
     controls = [
       new OpenLayers.Control.MousePosition({
         displayProjection: geoProj
-      }), new OpenLayers.Control.OverviewMap, new OpenLayers.Control.KeyboardDefaults, new OpenLayers.Control.LayerSwitcher, new OpenLayers.Control.Navigation
+      }), new OpenLayers.Control.OverviewMap, new OpenLayers.Control.KeyboardDefaults, layerSwitcher, new OpenLayers.Control.Navigation
     ];
     map = new OpenLayers.Map(map_div_name, {
       controls: controls
     });
+    layerSwitcher.maximizeControl();
     CATMAP.map = map;
     osm = new OpenLayers.Layer.OSM();
     map.addLayer(osm);
