@@ -172,38 +172,50 @@ CATMAP.load_map = (map_div_name) ->
   # minimum_longitude: -125.4483
   # maximum_longitude: -89.5877
 
-  mpex4kmGoesBounds = new OpenLayers.Bounds(-125.4483, 27.55, -89.52, 49.6830).transform(geoProj, mercProj)
+  # mpex4kmGoesBounds = new OpenLayers.Bounds(-125.4483, 27.55, -89.52, 49.6830).transform(geoProj, mercProj)
 
-  # ops.GOES-15.201305231830.4km_ch1_vis.jpg
-  mpex4kmCh1Layer = new OpenLayers.Layer.Image(
-    'ops.GOES-15.201305231830.4km_ch1_vis.jpg',
-    'img/ops.GOES-15.201305231830.4km_ch1_vis.jpg',
-    mpex4kmGoesBounds,
-    new OpenLayers.Size(1000,800),
-      isBaseLayer: false
-      alwaysInRange: true
-    )
+  # MPEX
+  # ops.GOES-14.201305311640.4km_ch1_vis.jpg
+  # ops.GOES-14.201305311640.4km_ch3_water_vapor.jpg
+  # ops.GOES-14.201305311640.4km_ch4_thermal-IR.jpg
+  # ops.GOES-14.201305311645.1km_NGP_ch1_vis.jpg
+  # ops.GOES-14.201305311645.1km_SGP_ch1_vis.jpg
 
-  # ops.GOES-15.201305231830.4km_ch3_water_vapor.jpg
-  mpex4kmCh3Layer = new OpenLayers.Layer.Image(
-    'ops.GOES-15.201305231830.4km_ch3_water_vapor.jpg',
-    'img/ops.GOES-15.201305231830.4km_ch3_water_vapor.jpg',
-    mpex4kmGoesBounds,
-    new OpenLayers.Size(1000,800),
-      isBaseLayer: false
-      alwaysInRange: true
-    )
+  # SAS
+  # ops.GOES-14.201305311645.1km_SE_ch1_vis.jpg
+  # ops.GOES-14.201305311645.4km_ch1_vis.jpg
+  # ops.GOES-14.201305311645.4km_ch3_water_vapor.jpg
+  # ops.GOES-14.201305311645.4km_ch4_thermal-IR.jpg
 
-  # ops.GOES-15.201305231800.4km_ch4_thermal-IR.jpg
-  mpex4kmCh4Layer = new OpenLayers.Layer.Image(
-    'ops.GOES-15.201305231800.4km_ch4_thermal-IR.jpg',
-    'img/ops.GOES-15.201305231800.4km_ch4_thermal-IR.jpg',
-    mpex4kmGoesBounds,
-    new OpenLayers.Size(1000,800),
-      isBaseLayer: false
-      alwaysInRange: true
-    )
+  # ops.GOES-14.201305311640.4km_ch1_vis.jpg
+  # mpex4kmCh1Layer = new OpenLayers.Layer.Image(
+  #   'ops.GOES-14.201305311640.4km_ch1_vis.jpg',
+  #   'img/ops.GOES-14.201305311640.4km_ch1_vis.jpg',
+  #   mpex4kmGoesBounds,
+  #   new OpenLayers.Size(1000,800),
+  #     isBaseLayer: false
+  #     alwaysInRange: true
+  #   )
 
+  # ops.GOES-14.201305311640.4km_ch3_water_vapor.jpg
+  # mpex4kmCh3Layer = new OpenLayers.Layer.Image(
+  #   'ops.GOES-14.201305311640.4km_ch3_water_vapor.jpg',
+  #   'img/ops.GOES-14.201305311640.4km_ch3_water_vapor.jpg',
+  #   mpex4kmGoesBounds,
+  #   new OpenLayers.Size(1000,800),
+  #     isBaseLayer: false
+  #     alwaysInRange: true
+  #   )
+
+  # ops.GOES-14.201305311640.4km_ch4_thermal-IR.jpg
+  # mpex4kmCh4Layer = new OpenLayers.Layer.Image(
+  #   'ops.GOES-14.201305311640.4km_ch4_thermal-IR.jpg',
+  #   'img/ops.GOES-14.201305311640.4km_ch4_thermal-IR.jpg',
+  #   mpex4kmGoesBounds,
+  #   new OpenLayers.Size(1000,800),
+  #     isBaseLayer: false
+  #     alwaysInRange: true
+  #   )
 
   # 1km NGP:
 
@@ -212,17 +224,18 @@ CATMAP.load_map = (map_div_name) ->
   # minimum_longitude: -108.7010
   # maximum_longitude: -90.4855
 
-  mpex1kmNgpGoesBounds = new OpenLayers.Bounds(-108.7010, 33.63,  -90.44, 47.4165).transform(geoProj, mercProj)
+  # mpex1kmNgpGoesBounds = new OpenLayers.Bounds(-108.7010, 33.63,  -90.44, 47.4165).transform(geoProj, mercProj)
+  # mpex1kmNgpGoesBounds = new OpenLayers.Bounds(-108.7010, 33.63,  -90.44, 47.4165).transform(geoProj, mercProj)
 
-  # ops.GOES-15.201305231830.1km_NGP_ch1_vis.jpg
-  mpex1kmNgpLayer = new OpenLayers.Layer.Image(
-    'ops.GOES-15.201305231830.1km_NGP_ch1_vis.jpg',
-    'img/ops.GOES-15.201305231830.1km_NGP_ch1_vis.jpg',
-    mpex1kmNgpGoesBounds,
-    new OpenLayers.Size(1024,1024),
-      isBaseLayer: false
-      alwaysInRange: true
-    )
+  # ops.GOES-14.201305311645.1km_NGP_ch1_vis.jpg
+  # mpex1kmNgpLayer = new OpenLayers.Layer.Image(
+  #   'ops.GOES-14.201305311645.1km_NGP_ch1_vis.jpg',
+  #   'img/ops.GOES-14.201305311645.1km_NGP_ch1_vis.jpg',
+  #   mpex1kmNgpGoesBounds,
+  #   new OpenLayers.Size(1024,1024),
+  #     isBaseLayer: false
+  #     alwaysInRange: true
+  #   )
 
   # 1km SGP:
 
@@ -231,27 +244,91 @@ CATMAP.load_map = (map_div_name) ->
   # minimum_longitude: -107.4267
   # maximum_longitude: -90.8137
 
-  mpex1kmSgpGoesBounds = new OpenLayers.Bounds(-107.4267, 26.85, -90.78, 40.57).transform(geoProj, mercProj)
+  # mpex1kmSgpGoesBounds = new OpenLayers.Bounds(-107.4267, 26.85, -90.78, 40.57).transform(geoProj, mercProj)
+  # mpex1kmSgpGoesBounds = new OpenLayers.Bounds(-107.4267, 26.85, -90.78, 40.57).transform(geoProj, mercProj)
 
-  # ops.GOES-15.201305231830.1km_SGP_ch1_vis.jpg
-  mpex1kmSgpLayer = new OpenLayers.Layer.Image(
-    'ops.GOES-15.201305231830.1km_SGP_ch1_vis.jpg',
-    'img/ops.GOES-15.201305231830.1km_SGP_ch1_vis.jpg',
-    mpex1kmSgpGoesBounds,
-    new OpenLayers.Size(1024,1024),
-      isBaseLayer: false
-      alwaysInRange: true
-    )
+  # ops.GOES-14.201305311645.1km_SGP_ch1_vis.jpg
+  # mpex1kmSgpLayer = new OpenLayers.Layer.Image(
+  #   'ops.GOES-14.201305311645.1km_SGP_ch1_vis.jpg',
+  #   'img/ops.GOES-14.201305311645.1km_SGP_ch1_vis.jpg',
+  #   mpex1kmSgpGoesBounds,
+  #   new OpenLayers.Size(1024,1024),
+  #     isBaseLayer: false
+  #     alwaysInRange: true
+  #   )
 
-  map.addLayers [ mpex4kmCh1Layer, mpex4kmCh3Layer, mpex4kmCh4Layer ]
-  map.addLayers [ mpex1kmNgpLayer, mpex1kmSgpLayer]
+  # map.addLayers [ mpex4kmCh1Layer, mpex4kmCh3Layer, mpex4kmCh4Layer ]
+  # map.addLayers [ mpex4kmCh1Layer ]
+  # map.addLayers [ mpex1kmNgpLayer, mpex1kmSgpLayer]
 
   # mpex4kmCh1Layer.setOpacity .5
   # mpex4kmCh3Layer.setOpacity .5
   # mpex4kmCh4Layer.setOpacity .5
 
-  mpex1kmNgpLayer.setOpacity .5
-  mpex1kmSgpLayer.setOpacity .5
+  # mpex1kmNgpLayer.setOpacity .5
+  # mpex1kmSgpLayer.setOpacity .5
+
+  # SAS
+  # ops.GOES-14.201305311645.1km_SE_ch1_vis.jpg
+  # ops.GOES-14.201305311645.4km_ch1_vis.jpg
+  # ops.GOES-14.201305311645.4km_ch3_water_vapor.jpg
+  # ops.GOES-14.201305311645.4km_ch4_thermal-IR.jpg
+
+  # SAS 4km bounds:
+  # provided / nominal:
+  #   N: 47.9302
+  #   S: 22.9482
+  #   E: -65.5498
+  #   W: -105.6473
+  # used for GOES-13
+  #   minimum_latitude: 22.87
+  #   maximum_latitude: 47.9302
+  #   minimum_longitude: -105.6473
+  #   maximum_longitude: -65.46
+
+
+  # from terascan goes-13
+  # sas4kmGoesBounds = new OpenLayers.Bounds(-105.6473, 22.9482, -65.5498, 47.9302).transform(geoProj, mercProj)
+  # from goes-13 catalog-maps config
+  sas4kmGoesBounds = new OpenLayers.Bounds(-105.6473, 22.87, -65.46, 47.9302).transform(geoProj, mercProj)
+
+  # ops.GOES-14.201305311645.4km_ch1_vis.jpg
+  sas4kmCh1Layer = new OpenLayers.Layer.Image(
+    'ops.GOES-14.201305311645.4km_ch1_vis.jpg',
+    'img/ops.GOES-14.201305311645.4km_ch1_vis.jpg',
+    sas4kmGoesBounds,
+    new OpenLayers.Size(900,700),
+      isBaseLayer: false
+      alwaysInRange: true
+    )
+
+  # ops.GOES-14.201305311645.4km_ch3_water_vapor.jpg
+  sas4kmCh3Layer = new OpenLayers.Layer.Image(
+    'ops.GOES-14.201305311645.4km_ch3_water_vapor.jpg',
+    'img/ops.GOES-14.201305311645.4km_ch3_water_vapor.jpg',
+    sas4kmGoesBounds,
+    new OpenLayers.Size(900,700),
+      isBaseLayer: false
+      alwaysInRange: true
+    )
+
+  # ops.GOES-14.201305311645.4km_ch4_thermal-IR.jpg
+  sas4kmCh4Layer = new OpenLayers.Layer.Image(
+    'ops.GOES-14.201305311645.4km_ch4_thermal-IR.jpg',
+    'img/ops.GOES-14.201305311645.4km_ch4_thermal-IR.jpg',
+    sas4kmGoesBounds,
+    new OpenLayers.Size(900,700),
+      isBaseLayer: false
+      alwaysInRange: true
+    )
+
+  map.addLayers [ sas4kmCh1Layer, sas4kmCh3Layer, sas4kmCh4Layer ]
+  # map.addLayers [ sas4kmCh1Layer ]
+  # map.addLayers [ mpex1kmNgpLayer, mpex1kmSgpLayer]
+
+  sas4kmCh1Layer.setOpacity .5
+  sas4kmCh3Layer.setOpacity .5
+  sas4kmCh4Layer.setOpacity .5
 
   # imageLayer = new OpenLayers.Layer.Image(
   #   'business cat',
