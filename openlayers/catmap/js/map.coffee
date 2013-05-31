@@ -322,15 +322,30 @@ CATMAP.load_map = (map_div_name) ->
       alwaysInRange: true
     )
 
-  map.addLayers [ sas4kmCh1Layer, sas4kmCh3Layer, sas4kmCh4Layer ]
+  # G14 1km: N: 41.876 S: 28.1227 E: -76.2822 W: -93.1523
+  sasGoesSeBounds = new OpenLayers.Bounds(-93.1523, 28.09, -76.26, 41.876).transform(geoProj, mercProj)
+
+  # ops.GOES-14.201305311645.1km_SE_ch1_vis.jpg
+  sas4kmCh1SeLayer = new OpenLayers.Layer.Image(
+    'ops.GOES-14.201305311645.1km_SE_ch1_vis.jpg',
+    'img/ops.GOES-14.201305311645.1km_SE_ch1_vis.jpg',
+    sasGoesSeBounds,
+    new OpenLayers.Size(1024,1024),
+      isBaseLayer: false
+      alwaysInRange: true
+    )
+
+  # map.addLayers [ sas4kmCh1Layer, sas4kmCh3Layer, sas4kmCh4Layer, sas4kmCh1SeLayer ]
   # map.addLayers [ sas4kmCh1Layer ]
+  map.addLayers [ sas4kmCh1SeLayer ]
   # map.addLayers [ mpex1kmNgpLayer, mpex1kmSgpLayer]
 
   sas4kmCh1Layer.setOpacity .5
   sas4kmCh3Layer.setOpacity .5
   sas4kmCh4Layer.setOpacity .5
+  sas4kmCh1SeLayer.setOpacity .5
 
-  # imageLayer = new OpenLayers.Layer.Image(
+   # imageLayer = new OpenLayers.Layer.Image(
   #   'business cat',
   #   'img/business-cat.jpg', # from http://troll.me/images/business-cat-needs/business-cat-needs.jpg
   #   new OpenLayers.Bounds(-105.37, 40.00, -105.21, 40.11).transform(geoProj, mercProj),
