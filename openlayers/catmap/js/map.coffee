@@ -326,9 +326,9 @@ CATMAP.load_map = (map_div_name) ->
   sasGoesSeBounds = new OpenLayers.Bounds(-93.1523, 28.09, -76.26, 41.876).transform(geoProj, mercProj)
 
   # ops.GOES-14.201305311645.1km_SE_ch1_vis.jpg
-  sas4kmCh1SeLayer = new OpenLayers.Layer.Image(
-    'ops.GOES-14.201305311645.1km_SE_ch1_vis.jpg',
-    'img/ops.GOES-14.201305311645.1km_SE_ch1_vis.jpg',
+  sas1kmCh1SeLayer = new OpenLayers.Layer.Image(
+    'ops.GOES-13.201306201740.1km_SE_ch1_vis.jpg',
+    'img/ops.GOES-13.201306201740.1km_SE_ch1_vis.jpg',
     sasGoesSeBounds,
     new OpenLayers.Size(1024,1024),
       isBaseLayer: false
@@ -337,13 +337,13 @@ CATMAP.load_map = (map_div_name) ->
 
   # map.addLayers [ sas4kmCh1Layer, sas4kmCh3Layer, sas4kmCh4Layer, sas4kmCh1SeLayer ]
   # map.addLayers [ sas4kmCh1Layer ]
-  map.addLayers [ sas4kmCh1SeLayer ]
+  map.addLayers [ sas1kmCh1SeLayer ]
   # map.addLayers [ mpex1kmNgpLayer, mpex1kmSgpLayer]
 
   sas4kmCh1Layer.setOpacity .5
   sas4kmCh3Layer.setOpacity .5
   sas4kmCh4Layer.setOpacity .5
-  sas4kmCh1SeLayer.setOpacity .5
+  sas1kmCh1SeLayer.setOpacity .5
 
    # imageLayer = new OpenLayers.Layer.Image(
   #   'business cat',
