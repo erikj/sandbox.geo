@@ -7,16 +7,12 @@
   this.CATMAP = CATMAP;
 
   CATMAP.load_map = function(map_div_name) {
-    var boulder, center, color, colors, controls, geoProj, ghyb, gmap, gsat, gterr, kmlDir, layerSwitcher, map, mercProj, osm, salina, sas1kmCh1SeLayer, sas4kmCh1Layer, sas4kmCh3Layer, sas4kmCh4Layer, sas4kmGoesBounds, sasGoesSeBounds, styles;
+    var boulder, center, christchurch, color, colors, controls, geoProj, ghyb, gmap, gsat, gterr, kmlDir, layerSwitcher, map, mercProj, mtsat2kmCh1Layer, mtsatBounds, osm, salina, sas1kmCh1SeLayer, sas4kmCh1Layer, sas4kmCh3Layer, sas4kmCh4Layer, sas4kmGoesBounds, sasGoesSeBounds, styles;
 
     geoProj = new OpenLayers.Projection("EPSG:4326");
     mercProj = new OpenLayers.Projection("EPSG:900913");
     layerSwitcher = new OpenLayers.Control.LayerSwitcher;
-    controls = [
-      new OpenLayers.Control.MousePosition({
-        displayProjection: geoProj
-      }), new OpenLayers.Control.OverviewMap, new OpenLayers.Control.KeyboardDefaults, layerSwitcher, new OpenLayers.Control.Navigation
-    ];
+    controls = [new OpenLayers.Control.KeyboardDefaults, new OpenLayers.Control.Graticule, layerSwitcher, new OpenLayers.Control.Navigation];
     map = new OpenLayers.Map(map_div_name, {
       controls: controls
     });
@@ -41,7 +37,8 @@
     map.addLayers([gterr, gmap, ghyb, gsat]);
     boulder = new OpenLayers.LonLat(-105.3, 40.028);
     salina = new OpenLayers.LonLat(-97.6459, 38.7871);
-    center = salina;
+    christchurch = new OpenLayers.LonLat(172.620278, -43.53);
+    center = christchurch;
     map.setCenter(center.transform(geoProj, mercProj), 5);
     colors = ['ff0000', '00ff00', '0000ff', 'ffd700', 'ff00ff', '00ffff'];
     styles = (function() {
@@ -74,13 +71,19 @@
     sasGoesSeBounds = new OpenLayers.Bounds(-93.1523, 28.09, -76.26, 41.876).transform(geoProj, mercProj);
     sas1kmCh1SeLayer = new OpenLayers.Layer.Image('ops.GOES-13.201306201740.1km_SE_ch1_vis.jpg', 'img/ops.GOES-13.201306201740.1km_SE_ch1_vis.jpg', sasGoesSeBounds, new OpenLayers.Size(1024, 1024), {
       isBaseLayer: false,
-      alwaysInRange: true
+      alwaysInRange: true,
+      wrapDateLine: true
     });
     map.addLayers([sas1kmCh1SeLayer]);
-    sas4kmCh1Layer.setOpacity(.5);
-    sas4kmCh3Layer.setOpacity(.5);
-    sas4kmCh4Layer.setOpacity(.5);
     sas1kmCh1SeLayer.setOpacity(.5);
+    mtsatBounds = new OpenLayers.Bounds(161.0289, -46.54, 178.9711, -32.76).transform(geoProj, mercProj);
+    mtsat2kmCh1Layer = new OpenLayers.Layer.Image('ops.MTSAT-2.201307242032.Hi-Res_ch1_vis.jpg', 'img/ops.MTSAT-2.201307242032.Hi-Res_ch1_vis.jpg', mtsatBounds, new OpenLayers.Size(2000, 2000), {
+      isBaseLayer: false,
+      alwaysInRange: true,
+      wrapDateLine: true
+    });
+    map.addLayers([mtsat2kmCh1Layer]);
+    mtsat2kmCh1Layer.setOpacity(.5);
     return map;
   };
 

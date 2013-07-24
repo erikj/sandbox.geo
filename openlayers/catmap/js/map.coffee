@@ -19,11 +19,12 @@ CATMAP.load_map = (map_div_name) ->
 
   # initialize openlayers map
   layerSwitcher = new OpenLayers.Control.LayerSwitcher
-  controls = [ new OpenLayers.Control.MousePosition({displayProjection:geoProj})
+  controls = [ #new OpenLayers.Control.MousePosition({displayProjection:geoProj})
                                             # display lat/lon of mouse's map position in lower-right corner
-    new OpenLayers.Control.OverviewMap      # toggled, lower-right corner
+    # new OpenLayers.Control.OverviewMap      # toggled, lower-right corner
     new OpenLayers.Control.KeyboardDefaults # +/- zoom in/out, move map via arrow keys
-    # new OpenLayers.Control.Zoom 
+    # new OpenLayers.Control.Zoom
+    new OpenLayers.Control.Graticule
     layerSwitcher   # toggled, upper-right corner, base-layer select, and vector and image checkboxes
     new OpenLayers.Control.Navigation ]     # move map, zoom in/out w/ via mouse input
 
@@ -33,9 +34,10 @@ CATMAP.load_map = (map_div_name) ->
   layerSwitcher.maximizeControl()
   CATMAP.map = map
   # layer for open-streep maps
-  osm = new OpenLayers.Layer.OSM()
+  osm = new OpenLayers.Layer.OSM() #(null, null, {wrapDateLine:false})
+  # osm.wrapDateLine = true
   map.addLayer osm
-
+  # console.log "osm.wrapDateLine #{osm.wrapDateLine}"
   # google-maps layers
   # based on http://openlayers.org/dev/examples/google-v3.html
   # docs: http://dev.openlayers.org/apidocs/files/OpenLayers/Layer/Google-js.html
@@ -48,9 +50,9 @@ CATMAP.load_map = (map_div_name) ->
 
   boulder = new OpenLayers.LonLat -105.3, 40.028
   salina  = new OpenLayers.LonLat -97.6459, 38.7871
-
+  christchurch = new OpenLayers.LonLat 172.620278, -43.53
   # center  = boulder
-  center  = salina
+  center  = christchurch
 
   map.setCenter center.transform(geoProj, mercProj), 5
 
@@ -106,7 +108,7 @@ CATMAP.load_map = (map_div_name) ->
 
   # lineFeature = new OpenLayers.Feature.Vector(line, null, style)
   # lineLayer.addFeatures( [ lineFeature ])
-  
+
   # map.addLayer lineLayer
 
   # kmlSelector = new OpenLayers.Control.SelectFeature kmlLayers
@@ -333,6 +335,7 @@ CATMAP.load_map = (map_div_name) ->
     new OpenLayers.Size(1024,1024),
       isBaseLayer: false
       alwaysInRange: true
+      wrapDateLine: true
     )
 
   # map.addLayers [ sas4kmCh1Layer, sas4kmCh3Layer, sas4kmCh4Layer, sas4kmCh1SeLayer ]
@@ -340,12 +343,47 @@ CATMAP.load_map = (map_div_name) ->
   map.addLayers [ sas1kmCh1SeLayer ]
   # map.addLayers [ mpex1kmNgpLayer, mpex1kmSgpLayer]
 
-  sas4kmCh1Layer.setOpacity .5
-  sas4kmCh3Layer.setOpacity .5
-  sas4kmCh4Layer.setOpacity .5
+  # sas4kmCh1Layer.setOpacity .5
+  # sas4kmCh3Layer.setOpacity .5
+  # sas4kmCh4Layer.setOpacity .5
   sas1kmCh1SeLayer.setOpacity .5
 
-   # imageLayer = new OpenLayers.Layer.Image(
+  # ops.MTSAT-2.201307232232.ch1_vis.jpg
+  # ops.MTSAT-2.201307232232.ch2_thermal_IR.jpg
+  # ops.MTSAT-2.201307232232.ch4_water_vapor.jpg
+
+  # works w/ wrapDateLine: true, but fails on east boundary
+  # mtsatBounds = new OpenLayers.Bounds(130, -69, 210, -20).transform(geoProj, mercProj)
+
+  # works w/ wrapDateLine: true, but fails on west boundary
+  # mtsatBounds = new OpenLayers.Bounds(-230, -69, -150, -20).transform(geoProj, mercProj)
+
+  # no, but should work...
+  # mtsatBounds = new OpenLayers.Bounds(130, -69, -150, -20).transform(geoProj, mercProj)
+
+  # no, goes wrong way around planet
+  # mtsatBounds = new OpenLayers.Bounds(-150, -69, 130, -20).transform(geoProj, mercProj)
+
+
+  mtsatBounds = new OpenLayers.Bounds(161.0289, -46.54, 178.9711, -32.76).transform(geoProj, mercProj)
+
+
+  mtsat2kmCh1Layer = new OpenLayers.Layer.Image(
+    'ops.MTSAT-2.201307242032.Hi-Res_ch1_vis.jpg',
+    'img/ops.MTSAT-2.201307242032.Hi-Res_ch1_vis.jpg',
+    mtsatBounds,
+    new OpenLayers.Size(2000,2000),
+      isBaseLayer: false
+      alwaysInRange: true
+      wrapDateLine: true
+    )
+  # console.log "mtsat4kmCh1Layer.wrapDateLine #{mtsat4kmCh1Layer.wrapDateLine}"
+
+  map.addLayers [ mtsat2kmCh1Layer ]
+  mtsat2kmCh1Layer.setOpacity .5
+
+
+  # imageLayer = new OpenLayers.Layer.Image(
   #   'business cat',
   #   'img/business-cat.jpg', # from http://troll.me/images/business-cat-needs/business-cat-needs.jpg
   #   new OpenLayers.Bounds(-105.37, 40.00, -105.21, 40.11).transform(geoProj, mercProj),
@@ -355,7 +393,7 @@ CATMAP.load_map = (map_div_name) ->
   #   )
   # map.addLayers [imageLayer]
   # imageLayer.setOpacity .5
-  # 
+  #
   # imageLayer2 = new OpenLayers.Layer.Image(
   #   'research.CHILL.201106140005.DBZ.png',
   #   'http://catalog.eol.ucar.edu/dc3_2011/research/chill/20110614/research.CHILL.201106140005.DBZ.png',
@@ -364,7 +402,7 @@ CATMAP.load_map = (map_div_name) ->
   #     isBaseLayer: false
   #     alwaysInRange: true
   # )
-  # 
+  #
   # imageLayer3 = new OpenLayers.Layer.Image(
   #   'research.CHILL.201106140005.ZDR.png',
   #   'http://catalog.eol.ucar.edu/dc3_2011/research/chill/20110614/research.CHILL.201106140005.ZDR.png',
@@ -373,7 +411,7 @@ CATMAP.load_map = (map_div_name) ->
   #     isBaseLayer: false
   #     alwaysInRange: true
   # )
-  # 
+  #
   # imageLayer4 = new OpenLayers.Layer.Image(
   #   'research.CHILL.201106140005.VEL.png',
   #   'http://catalog.eol.ucar.edu/dc3_2011/research/chill/20110614/research.CHILL.201106140005.VEL.png',
@@ -382,7 +420,7 @@ CATMAP.load_map = (map_div_name) ->
   #     isBaseLayer: false
   #     alwaysInRange: true
   # )
-  # 
+  #
   # imageLayer5 = new OpenLayers.Layer.Image(
   #   'radar.NEXRAD.mosaic',
   #   'http://catalog.eol.ucar.edu//dc3_2011/radar/nexrad_mosaic/20110629/radar.NEXRAD_mosaic.201106292138.N0R_hires_radaronly.gif',
@@ -391,7 +429,7 @@ CATMAP.load_map = (map_div_name) ->
   #     isBaseLayer: false
   #     alwaysInRange: true
   # )
-  # 
+  #
   # map.addLayers [imageLayer2, imageLayer3, imageLayer4, imageLayer5]
   # imageLayer2.setOpacity .5
   # imageLayer3.setOpacity .5
@@ -410,7 +448,7 @@ onFeatureSelect = (event) ->
 
   console.log feature.attributes.description
 
-  popup = new OpenLayers.Popup.FramedCloud "chickenXXX", 
+  popup = new OpenLayers.Popup.FramedCloud "chickenXXX",
     feature.geometry.getBounds().getCenterLonLat()
     new OpenLayers.Size(100,100)
     content
